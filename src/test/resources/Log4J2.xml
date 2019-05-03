@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+
+    <Properties>
+        <Property name="logFileName">target/logs/open_source_cms_automation_${date:yyyyMMdd_HHmmss}.log</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}[%F:%L] - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <File name="LogFile" fileName="${logFileName}">
+        <PatternLayout>
+            <pattern>%d{HH:mm:ss.SSS}[%t] %-5level %logger{36} - %msg%n</pattern>
+        </PatternLayout>
+    </File>
+
+    <Loggers>
+        <Logger name="com.csg.tau.prj" level="INFO">
+        <Root level="INFO">
+            <AppenderRef ref="LogFile" level="INFO"/>
+            <AppenderRef ref="Console" level="INFO"/>
+        </Root>
+        </Logger>
+    </Loggers>
+
+</Configuration>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Open-Source CMS Automation Test Suite" configfailurepolicy="continue">
+
+    <parameter name="TAF.browser" value="Chrome"></parameter>
+    <parameter name="applioaction.language" value="en"></parameter>
+
+    <listeners>
+        <listener class-name="com.csg.tau.prj.opensourcecms.TAFFailedTestListerner"></listener>
+    </listeners>
+
+    <suite-files>
+        <suite-file path="opensourcecmsautomation.xml"></suite-file>
+    </suite-files>
+</suite>

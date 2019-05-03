@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Open-Source CMS Automation Test Suite" verbose="1" parallel="tests" thread-count="1">
+
+    <listeners>
+       <!-- <listener class-name="com.csg.tau.bounty.report.track.BountyTestNGListener"></listener>-->
+        <listener class-name="com.csg.tau.prj.opensourcecms.TAFFailedTestListerner"></listener>
+    </listeners>
+
+    <parameter name="bounty.web.testharness-decorator.list" value="BountyWebTestReporterDecorator"></parameter>
+    <parameter name="bounty.reporter.resulting-page-type" value="SCREENSHIOT"></parameter>
+    <parameter name="maria.reporting.key" value="ABC"></parameter>
+    <parameter name="bounty.selenium.screenshots.on.fluentwait.default" value="false"></parameter>
+
+    <test name="opensourcecmsAutomationTest">
+        <classes>
+            <class name="com.csg.tau.prj.opensourcecms.SampleTest"></class>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.csg.opensourcecms.tau</groupId>
+    <artifactId>opensourcecmsautomation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>opensourcecmsautomation</name>
+
+    <properties>
+<!--    <ta.selected.testcases.by.id>.*</ta.selected.testcases.by.id>
+        <ta.selected.testlanguage>Default</ta.selected.testlanguage>-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--All versions-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <com.hierynomus.sshj.version>0.19.1</com.hierynomus.sshj.version>
+        <maven.surefire.plugin.version>2.20.1</maven.surefire.plugin.version>
+        <maven.resources.plugin.version>3.1.0</maven.resources.plugin.version>
+        <aspectj.maven.plugin.version>1.7</aspectj.maven.plugin.version>
+        <maven.complier.plugin.version>3.8.0</maven.complier.plugin.version>
+        <org.apache.pdfbox.version>1.8.4</org.apache.pdfbox.version>
+        <rhino.script.engine.version>1.0.1</rhino.script.engine.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hierynomus</groupId>
+            <artifactId>sshj</artifactId>
+            <version>${com.hierynomus.sshj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>${org.apache.pdfbox.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.christophkraemer</groupId>
+            <artifactId>rhino-script-engine</artifactId>
+            <version>${rhino.script.engine.version}</version>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>4.2.1</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M3</version>
+<!--            <type>maven-plugin</type>-->
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>SIT_TC_PROXY</id>
+        </profile>
+    </profiles>
+
+    <build>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+  <!--          <directory>${moduleSpecificTestResources.dir}</directory>-->
+            </testResource>
+        </testResources>
+
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+
+        <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                            <trimStackTrace>false</trimStackTrace>
+                            <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                            <workingDirectory>${project.build.directory}</workingDirectory>
+
+                           <properties>
+                                <property>
+                                    <name>testnames</name>
+                                    <value>${testnames}</value>
+                                </property>
+                            </properties>
+
+                        </suiteXmlFiles>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven.resources.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>testresources</id>
+                            <phase>validate</phase>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <resources>
+                            <resource>
+                                <directory>src/test/resources/filteredResources</directory>
+                                <filtering>true</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>aspectj-maven-plugin</artifactId>
+                    <version>${aspectj.maven.plugin.version}</version>
+
+                    <configuration>
+
+                        <showWeaveInfo>false</showWeaveInfo>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <Xlint>ignore</Xlint>
+                        <complianceLevel>${maven.compiler.source}</complianceLevel>
+                        <encoding>UTF-8</encoding>
+                        <verbose>false</verbose>
+
+                        <!--<aspectLibraries>
+
+                            <aspectLibrary>
+                                <groupId>com.csg.opensourcecms.tau</groupId>
+                                <artifactId>opensourcecmsautomation</artifactId>
+                            </aspectLibrary>
+
+                            <aspectLibrary>
+                                <groupId>com.csg.opensourcecms.tau</groupId>
+                                <artifactId>opensourcecmsautomation</artifactId>
+                            </aspectLibrary>
+
+                            <weaveDependencies>
+
+                                <weaveDependency>
+                                    <groupId>com.csg.opensourcecms.tau</groupId>
+                                    <artifactId>to-weave</artifactId>
+                                </weaveDependency>
+
+                                <weaveDependency>
+                                    <groupId>org.anothergroup</groupId>
+                                    <artifactId>opensourcecmsautomation</artifactId>
+                                </weaveDependency>
+
+                            </weaveDependencies>
+
+                        </aspectLibraries>-->
+
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compile</goal>
+                                <goal>test-compile</goal>
+                            </goals>
+                        </execution>
+                   </executions>
+
+                    <dependencies>
+
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjtools</artifactId>
+                            <version>1.5.4</version>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjrt</artifactId>
+                            <version>1.5.4</version>
+                        </dependency>
+
+                    </dependencies>
+
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.complier.plugin.version}</version>
+
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <includes>
+                            <include>**/*/*.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>2.2</version>
+            <!--        <version>${maven.compiler.plugin.version}</version>-->
+                </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
