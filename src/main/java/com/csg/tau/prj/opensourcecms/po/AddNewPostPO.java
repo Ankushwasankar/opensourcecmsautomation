@@ -19,7 +19,7 @@ public class AddNewPostPO extends BaseMobilePageMethods {
         action.moveToElement(element).build().perform();
         Thread.sleep(120);
         driver.findElement(By.linkText("Categories")).click();
-        System.out.println("link clicked..!!!");
+        System.out.println("link clicked......!!!");
     }
 
     public enum Element{
