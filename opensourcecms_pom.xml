@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>opensourcecmsautomation</artifactId>
-    <name>opensourcecmsautomation</name>
+    <name>openSourceCMSAutomation</name>
     <packaging>jar</packaging>
 
     <properties>
